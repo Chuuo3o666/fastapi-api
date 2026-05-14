@@ -67,3 +67,15 @@ def obtener_usuarios():
         })
 
     return resultado
+
+@app.delete("/usuarios")
+def eliminar_usuarios():
+
+    db = SessionLocal()
+
+    db.query(Usuario).delete()
+    db.commit()
+
+    return {
+        "mensaje": "Todos los usuarios eliminados"
+    }
