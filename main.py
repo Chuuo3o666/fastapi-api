@@ -15,11 +15,11 @@ def obtener_usuarios():
     return usuarios
 
 @app.post("/usuarios")
-def crear_usuario(usuario: dict):
+def crear_usuarios(lista_usuarios: list):
 
-    usuarios.append(usuario)
+    usuarios.extend(lista_usuarios)
 
     return {
-        "mensaje": "Usuario agregado",
-        "usuario": usuario
+        "mensaje": "Usuarios agregados",
+        "usuarios": lista_usuarios
     }
