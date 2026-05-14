@@ -68,6 +68,7 @@ def obtener_usuarios():
 
     return resultado
 
+
 @app.delete("/usuarios")
 def eliminar_usuarios():
 
