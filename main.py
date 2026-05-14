@@ -180,3 +180,24 @@ def obtener_movimientos():
         })
 
     return resultado
+
+@app.get("/movimientos/{movimiento_id}")
+def obtener_movimiento(movimiento_id: int):
+
+    db = SessionLocal()
+
+    movimiento = db.query(Movimiento).filter(
+        Movimiento.id == movimiento_id
+    ).first()
+
+    if movimiento is None:
+
+        return {
+            "mensaje": "Movimiento no encontrado"
+        }
+
+    return {
+        "id": movimiento.id,
+        "nombre": movimiento.nombre,
+        "tipo": movimiento.tipo
+    }
