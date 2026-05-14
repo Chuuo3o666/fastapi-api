@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
+import csv
 
 DATABASE_URL = "postgresql://usuarios_db_9x33_user:pajNkphKikCMzRsu7A3Md1rn9UUASFPM@dpg-d82puc4vikkc73ahvrcg-a/usuarios_db_9x33"
 
@@ -99,4 +100,29 @@ def eliminar_usuarios():
 
     return {
         "mensaje": "Todos los usuarios eliminados"
+    }
+
+
+@app.post("/importar-csv")
+def importar_csv():
+
+    db = SessionLocal()
+
+    with open("usuarios.csv", newline="", encoding="utf-8") as archivo:
+
+        lector = csv.DictReader(archivo)
+
+        for fila in lector:
+
+            nuevo_usuario = Usuario(
+                nombre=fila["nombre"],
+                edad=int(fila["edad"])
+            )
+
+            db.add(nuevo_usuario)
+
+        db.commit()
+
+    return {
+        "mensaje": "Usuarios importados correctamente"
     }
