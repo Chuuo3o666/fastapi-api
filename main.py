@@ -69,6 +69,26 @@ def obtener_usuarios():
     return resultado
 
 
+@app.get("/usuarios/{usuario_id}")
+def obtener_usuario(usuario_id: int):
+
+    db = SessionLocal()
+
+    usuario = db.query(Usuario).filter(
+        Usuario.id == usuario_id
+    ).first()
+
+    if usuario is None:
+        return {
+            "mensaje": "Usuario no encontrado"
+        }
+
+    return {
+        "id": usuario.id,
+        "nombre": usuario.nombre,
+        "edad": usuario.edad
+    }
+
 @app.delete("/usuarios")
 def eliminar_usuarios():
 
