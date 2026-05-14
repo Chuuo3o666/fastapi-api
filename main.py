@@ -16,10 +16,9 @@ def obtener_usuarios():
 
 @app.post("/usuarios")
 def crear_usuarios(lista_usuarios: list):
-
     usuarios.extend(lista_usuarios)
 
-   return {
-    "mensaje": "Usuarios agregados",
-    "usuarios": lista_usuarios
-}
+    return {
+        "mensaje": "Usuarios agregados",
+        "usuarios": lista_usuarios
+    }
